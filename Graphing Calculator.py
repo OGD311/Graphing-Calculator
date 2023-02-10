@@ -1,5 +1,5 @@
 from PIL import Image, ImageDraw
-import random
+from random import randint
 
 def create():
     width = 200
@@ -46,13 +46,13 @@ def equinp():
 def graphline(horiz,vert,img,xcof,c):
     start = -1 * horiz
     end = horiz
-
+    colour = (randint(0,250),randint(0,250),randint(0,250))
 
     for x in range(start,(end//xcof)+1):
         y = -((xcof *(x))+c)
 
         try:
-            img.putpixel((horiz+x,vert+y),(255,0,0))
+            img.putpixel((horiz+x,vert+y),(colour))
             #print(x, y)
         except:
             if x < 0 or y < 0:
@@ -74,5 +74,10 @@ def graphline(horiz,vert,img,xcof,c):
 
 width, height, img = create()
 horiz, vert, img = axisline(width,height,img)
-xcof, c = equinp()
-graphline(horiz,vert,img,xcof,c)
+
+while True:
+    xcof, c = equinp()
+    graphline(horiz,vert,img,xcof,c)
+    adanl = input("Add another line (Y/N): ").lower()
+    if adanl != "y":
+        break
