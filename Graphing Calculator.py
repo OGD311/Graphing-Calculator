@@ -1,13 +1,13 @@
 from PIL import Image, ImageDraw
-from random import randint
+import random
+import time
 
 def create():
-    width = 200
-    height = 200
+    width = 1000
+    height = 1000
     img = Image.new(mode="RGB", color=(256, 256, 256), size=(width, height))
     for y in range(height):
         for x in range(width):
-
             img.putpixel((x, y), (255,255,255))
     
     img.save("Graph.png")
@@ -28,7 +28,7 @@ def axisline(width,height,img):
 
 def equinp():
     try:
-        xcof = int(input("Enter coefficient of x: "))
+        xcof = float(input("Enter coefficient of x: "))
     except:
         xcof = 1
     #try:
@@ -36,7 +36,7 @@ def equinp():
     #except:
     #    xpow = 1
     try:   
-        c = int(input("Enter y intercept: "))
+        c = float(input("Enter y intercept: "))
     except:
         c = 0
 
@@ -46,16 +46,19 @@ def equinp():
 def graphline(horiz,vert,img,xcof,c):
     start = -1 * horiz
     end = horiz
-    colour = (randint(0,250),randint(0,250),randint(0,250))
+    colours = [[255,0,0],[0,255,0],[0,0,255]]
+    colour = (random.choice(colours))
 
-    for x in range(start,(end//xcof)+1):
+    for x in range(start,(end//(int(round(xcof,0))))+15):
         y = -((xcof *(x))+c)
-
+        y = int(round(y,1))
         try:
-            img.putpixel((horiz+x,vert+y),(colour))
-            #print(x, y)
+            img.putpixel((horiz+x,vert+y),(colour[0],colour[1],colour[2]))
+           # print(x, int(vert+y))
+
         except:
             if x < 0 or y < 0:
+              #  print("E",x,y)
                 pass
             else:
                 break
@@ -63,13 +66,11 @@ def graphline(horiz,vert,img,xcof,c):
     img.save("Graph.png")
 
 
-    x = start
-    while True:
-        x += 1
-        if -((xcof *(x))+c) == 0:
-            break
-    print("Passes through the y axis at 0",c)
-    print("Passes through the x axis at",x,"0")
+
+    yint = c
+    xint = (round((c/xcof),2))
+    print("Passes through the y axis at (0 , "+str(yint)+")")
+    print("Passes through the x axis at ("+str(xint)+" , 0)")
 
 
 width, height, img = create()
