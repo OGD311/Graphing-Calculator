@@ -11,6 +11,7 @@ def create():
         width = 500
         height = width
     img = Image.new(mode="RGB", color=(256, 256, 256), size=(width, height))
+    img.save("Graph.png")
     print("\n")
     return width,height,img
 
@@ -101,7 +102,7 @@ def graphline(horiz,vert,img,xcof,c,xpa):
 def intercepts(c,xcof,xpa):
     if c != "" and xpa == "":
         try:
-            xint = "Passes through the y axis at ("+str(round((c/xcof),2)*-1)+" , 0)"
+            xint = "Passes through the x axis at ("+str(round((c/xcof),2)*-1)+" , 0)"
         except:
             xint = "line does not intercept x axis"
         c = "Passes through the y axis at (0 , "+str(c)+")"
